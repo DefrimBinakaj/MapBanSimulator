@@ -39,15 +39,15 @@ public partial class MainWindow : Window
         switch (step)
         {
             case 1:
-                InstructionText.Text = "Team 1: Ban 2 maps";
+                BanPageTitle.Text = "Team 1: Ban 2 maps";
                 MapBox.SelectionMode = System.Windows.Controls.SelectionMode.Multiple;
                 break;
             case 2:
-                InstructionText.Text = "Team 2: Ban 3 maps";
+                BanPageTitle.Text = "Team 2: Ban 3 maps";
                 MapBox.SelectionMode = System.Windows.Controls.SelectionMode.Multiple;
                 break;
             case 3:
-                InstructionText.Text = "Team 1: Ban 1 map";
+                BanPageTitle.Text = "Team 1: Ban 1 map";
                 MapBox.SelectionMode = System.Windows.Controls.SelectionMode.Single;
                 break;
         }
@@ -71,7 +71,7 @@ public partial class MainWindow : Window
         {
             de_maps = de_maps.Except(selectedColors).ToList();
             step++;
-            MessageBox.Show($"Team 1 chose the color: {de_maps[0]}", "Game Over");
+            MessageBox.Show($"Team 1 chose {de_maps[0]}", "Game Over");
             // InitBanPhase();
             // return;
         }

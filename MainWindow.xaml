@@ -20,7 +20,7 @@
         </Grid.ColumnDefinitions>
 
         <TextBlock
-            Name="InstructionText"
+            Name="BanPageTitle"
             Grid.Row="0"
             Grid.Column="1"
             HorizontalAlignment="Center" 
@@ -50,25 +50,22 @@
         <Viewbox Grid.Row="1" Grid.Column="1" Stretch="Uniform">
             <Canvas Grid.Row="1" Width="200" Height="200">
 
-                <Rectangle Canvas.Left="90" Canvas.Top="10" Width="30" Height="30" Fill="DimGray"/>
+                <Rectangle Canvas.Left="85" Canvas.Top="20" Width="30" Height="30" Fill="DimGray"/>
 
-                <Rectangle Canvas.Left="35" Canvas.Top="50" Width="30" Height="30" Fill="DimGray"/>
+                <Rectangle Canvas.Left="35" Canvas.Top="55" Width="30" Height="30" Fill="DimGray"/>
 
-                <Rectangle Canvas.Left="145" Canvas.Top="50" Width="30" Height="30" Fill="DimGray"/>
+                <Rectangle Canvas.Left="135" Canvas.Top="55" Width="30" Height="30" Fill="DimGray"/>
 
                 <Rectangle Canvas.Left="20" Canvas.Top="110" Width="30" Height="30" Fill="DimGray"/>
 
-                <Rectangle Canvas.Left="160" Canvas.Top="110" Width="30" Height="30" Fill="DimGray"/>
+                <Rectangle Canvas.Left="150" Canvas.Top="110" Width="30" Height="30" Fill="DimGray"/>
 
-                <Rectangle Canvas.Left="60" Canvas.Top="160" Width="30" Height="30" Fill="DimGray"/>
+                <Rectangle Canvas.Left="60" Canvas.Top="155" Width="30" Height="30" Fill="DimGray"/>
 
-                <Rectangle Canvas.Left="120" Canvas.Top="160" Width="30" Height="30" Fill="DimGray"/>
+                <Rectangle Canvas.Left="110" Canvas.Top="155" Width="30" Height="30" Fill="DimGray"/>
 
             </Canvas>
         </Viewbox>
-
-
-
 
 
 
