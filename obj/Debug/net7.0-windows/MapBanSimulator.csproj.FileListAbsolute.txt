@@ -19,3 +19,23 @@ C:\Users\defri\Documents\code\.NET Stuff\MapBanSimulator\obj\Debug\net7.0-window
 C:\Users\defri\Documents\code\.NET Stuff\MapBanSimulator\obj\Debug\net7.0-windows\MapBanSimulator.pdb
 C:\Users\defri\Documents\code\.NET Stuff\MapBanSimulator\obj\Debug\net7.0-windows\MapBanSimulator.genruntimeconfig.cache
 C:\Users\defri\Documents\code\.NET Stuff\MapBanSimulator\obj\Debug\net7.0-windows\ref\MapBanSimulator.dll
+C:\Users\defrim.binakaj\source\repos\MapBanSimulator\bin\Debug\net7.0-windows\MapBanSimulator.exe
+C:\Users\defrim.binakaj\source\repos\MapBanSimulator\bin\Debug\net7.0-windows\MapBanSimulator.deps.json
+C:\Users\defrim.binakaj\source\repos\MapBanSimulator\bin\Debug\net7.0-windows\MapBanSimulator.runtimeconfig.json
+C:\Users\defrim.binakaj\source\repos\MapBanSimulator\bin\Debug\net7.0-windows\MapBanSimulator.dll
+C:\Users\defrim.binakaj\source\repos\MapBanSimulator\bin\Debug\net7.0-windows\MapBanSimulator.pdb
+C:\Users\defrim.binakaj\source\repos\MapBanSimulator\obj\Debug\net7.0-windows\MainWindow.g.cs
+C:\Users\defrim.binakaj\source\repos\MapBanSimulator\obj\Debug\net7.0-windows\App.g.cs
+C:\Users\defrim.binakaj\source\repos\MapBanSimulator\obj\Debug\net7.0-windows\MapBanSimulator_MarkupCompile.cache
+C:\Users\defrim.binakaj\source\repos\MapBanSimulator\obj\Debug\net7.0-windows\MapBanSimulator_MarkupCompile.lref
+C:\Users\defrim.binakaj\source\repos\MapBanSimulator\obj\Debug\net7.0-windows\MainWindow.baml
+C:\Users\defrim.binakaj\source\repos\MapBanSimulator\obj\Debug\net7.0-windows\MapBanSimulator.g.resources
+C:\Users\defrim.binakaj\source\repos\MapBanSimulator\obj\Debug\net7.0-windows\MapBanSimulator.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\defrim.binakaj\source\repos\MapBanSimulator\obj\Debug\net7.0-windows\MapBanSimulator.AssemblyInfoInputs.cache
+C:\Users\defrim.binakaj\source\repos\MapBanSimulator\obj\Debug\net7.0-windows\MapBanSimulator.AssemblyInfo.cs
+C:\Users\defrim.binakaj\source\repos\MapBanSimulator\obj\Debug\net7.0-windows\MapBanSimulator.csproj.CoreCompileInputs.cache
+C:\Users\defrim.binakaj\source\repos\MapBanSimulator\obj\Debug\net7.0-windows\MapBanSimulator.dll
+C:\Users\defrim.binakaj\source\repos\MapBanSimulator\obj\Debug\net7.0-windows\refint\MapBanSimulator.dll
+C:\Users\defrim.binakaj\source\repos\MapBanSimulator\obj\Debug\net7.0-windows\MapBanSimulator.pdb
+C:\Users\defrim.binakaj\source\repos\MapBanSimulator\obj\Debug\net7.0-windows\MapBanSimulator.genruntimeconfig.cache
+C:\Users\defrim.binakaj\source\repos\MapBanSimulator\obj\Debug\net7.0-windows\ref\MapBanSimulator.dll

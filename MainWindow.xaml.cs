@@ -12,11 +12,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Diagnostics;
 
 namespace MapBanSimulator;
 
 public partial class MainWindow : Window
 {
+
+    // dict for checking if maps are banned
+    private Dictionary<string, Visibility> mapBanStatus;
+
     private List<string> de_maps;
     private int step;
 
@@ -28,61 +33,95 @@ public partial class MainWindow : Window
 
     private void InitBanPhase()
     {
-        de_maps = new List<string> { "Ancient", "Anubis", "Inferno", "Mirage", "Vertigo", "Overpass", "Nuke" };
-        MapBox.ItemsSource = de_maps;
-        step = 1;
-        SetInstruction();
+
+        mapBanStatus = new Dictionary<string, Visibility>
+        {
+            {"Ancient", ancientCheck.Visibility },
+            {"Anubis", anubisCheck.Visibility },
+            {"Inferno", infernoCheck.Visibility },
+            {"Mirage", mirageCheck.Visibility },
+            {"Vertigo", vertigoCheck.Visibility },
+            {"Overpass", overpassCheck.Visibility },
+            {"Nuke", nukeCheck.Visibility }
+        };
+
     }
 
-    private void SetInstruction()
+
+    private void mapSelection(string clickedMap)
     {
-        switch (step)
+
+        mapBanStatus[clickedMap] = Visibility.Visible;
+
+        int banCount = 0;
+        string finalMap = "";
+
+        foreach (KeyValuePair<string, Visibility> keyMap in mapBanStatus)
         {
-            case 1:
-                BanPageTitle.Text = "Team 1: Ban 2 maps";
-                MapBox.SelectionMode = System.Windows.Controls.SelectionMode.Multiple;
-                break;
-            case 2:
-                BanPageTitle.Text = "Team 2: Ban 3 maps";
-                MapBox.SelectionMode = System.Windows.Controls.SelectionMode.Multiple;
-                break;
-            case 3:
-                BanPageTitle.Text = "Team 1: Ban 1 map";
-                MapBox.SelectionMode = System.Windows.Controls.SelectionMode.Single;
-                break;
+            // Debug.WriteLine("\n\nHERE--- " +  keyMap.Key.ToString() + " " + keyMap.Value.ToString());
+            if (keyMap.Key != clickedMap && keyMap.Value == Visibility.Visible)
+            {
+                banCount++;
+            }
         }
+
+        if (banCount == 5)
+        {
+            foreach (KeyValuePair<string, Visibility> keyMap in mapBanStatus)
+            {
+                if (keyMap.Value == Visibility.Hidden)
+                {
+                    finalMap = keyMap.Key;
+                }
+            }
+            MessageBox.Show($"Team 1 chose {finalMap}", "Game Over");
+        }
+
     }
 
-    private void ProceedButton_Click(object sender, RoutedEventArgs e)
+
+
+    private void anubisClicked(object sender, RoutedEventArgs e)
     {
-        List<string> selectedColors = MapBox.SelectedItems.Cast<string>().ToList();
-
-        if (step == 1 && selectedColors.Count == 2)
-        {
-            de_maps = de_maps.Except(selectedColors).ToList();
-            step++;
-        }
-        else if (step == 2 && selectedColors.Count == 3)
-        {
-            de_maps = de_maps.Except(selectedColors).ToList();
-            step++;
-        }
-        else if (step == 3 && selectedColors.Count == 1)
-        {
-            de_maps = de_maps.Except(selectedColors).ToList();
-            step++;
-            MessageBox.Show($"Team 1 chose {de_maps[0]}", "Game Over");
-            // InitBanPhase();
-            // return;
-        }
-        else
-        {
-            MessageBox.Show("Invalid selection. Please follow the instructions.", "Error");
-            return;
-        }
-
-        MapBox.ItemsSource = null;
-        MapBox.ItemsSource = de_maps;
-        SetInstruction();
+        anubisCheck.Visibility = Visibility.Visible;
+        mapSelection("Anubis");
     }
+
+    private void ancientClicked(object sender, RoutedEventArgs e)
+    {
+        ancientCheck.Visibility = Visibility.Visible;
+        mapSelection("Ancient");
+    }
+
+    private void infernoClicked(object sender, RoutedEventArgs e)
+    {
+        infernoCheck.Visibility = Visibility.Visible;
+        mapSelection("Inferno");
+    }
+
+    private void nukeClicked(object sender, RoutedEventArgs e)
+    {
+        nukeCheck.Visibility = Visibility.Visible;
+        mapSelection("Nuke");
+    }
+
+    private void mirageClicked(object sender, RoutedEventArgs e)
+    {
+        mirageCheck.Visibility = Visibility.Visible;
+        mapSelection("Mirage");
+    }
+
+    private void overpassClicked(object sender, RoutedEventArgs e)
+    {
+        overpassCheck.Visibility = Visibility.Visible;
+        mapSelection("Overpass");
+    }
+
+    private void vertigoClicked(object sender, RoutedEventArgs e)
+    {
+        vertigoCheck.Visibility = Visibility.Visible;
+        mapSelection("Vertigo");
+    }
+
+
 }
