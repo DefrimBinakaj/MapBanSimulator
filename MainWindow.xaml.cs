@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Shapes;
 using System.Windows.Media.Imaging;
 using System.Diagnostics;
+using MapBanSimulator.Pages;
 
 namespace MapBanSimulator;
 
@@ -45,7 +46,7 @@ public partial class MainWindow : Window
 
         if (banCount == 6)
         {
-            var finalMap = mapControls.Last(mapCntrl => mapCntrl.Value.redOverlay.Visibility == Visibility.Hidden).Key;
+            string finalMap = mapControls.Last(mapCntrl => mapCntrl.Value.redOverlay.Visibility == Visibility.Hidden).Key;
             mapControls[finalMap].check.Visibility = Visibility.Visible;
         }
     }
@@ -69,5 +70,14 @@ public partial class MainWindow : Window
             control.Value.check.Visibility = Visibility.Hidden;
         }
     }
+
+
+    private void navCalcPage(object sender, RoutedEventArgs e)
+    {
+        // mainFrame.Content = new CalcPage();
+        // mainFrame.NavigationService.Navigate(new CalcPage());
+    }
+
+
 }
 

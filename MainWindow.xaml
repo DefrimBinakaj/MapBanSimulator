@@ -21,6 +21,8 @@
             <ColumnDefinition Width="0.1*"/>
         </Grid.ColumnDefinitions>
 
+        <Frame x:Name="mainFrame" />
+
         <TextBlock
             Name="BanPageTitle"
             Text="Welcome to the Map Banner"
@@ -82,7 +84,11 @@
         </Viewbox>
 
 
-
+        <Button
+            Name="navCalcButton"
+            Grid.Row="0"
+            Grid.Column="2"
+            Click="navCalcPage"/>
 
     </Grid>
 
