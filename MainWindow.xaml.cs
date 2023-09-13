@@ -1,17 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Media.Imaging;
 using System.Diagnostics;
 
 namespace MapBanSimulator;
@@ -19,11 +12,7 @@ namespace MapBanSimulator;
 public partial class MainWindow : Window
 {
 
-    // dict for checking if maps are banned
-    private Dictionary<string, Visibility> mapBanStatus;
-
-    private List<string> de_maps;
-    private int step;
+    private Dictionary<string, (Rectangle redOverlay, Image cross, Image check)> mapControls;
 
     public MainWindow()
     {
@@ -33,95 +22,52 @@ public partial class MainWindow : Window
 
     private void InitBanPhase()
     {
-
-        mapBanStatus = new Dictionary<string, Visibility>
+        mapControls = new Dictionary<string, (Rectangle, Image, Image)>
         {
-            {"Ancient", ancientCheck.Visibility },
-            {"Anubis", anubisCheck.Visibility },
-            {"Inferno", infernoCheck.Visibility },
-            {"Mirage", mirageCheck.Visibility },
-            {"Vertigo", vertigoCheck.Visibility },
-            {"Overpass", overpassCheck.Visibility },
-            {"Nuke", nukeCheck.Visibility }
+            {"Anubis", (anubisRedOverlay, anubisCross, anubisCheck)},
+            {"Ancient", (ancientRedOverlay, ancientCross, ancientCheck)},
+            {"Inferno", (infernoRedOverlay, infernoCross, infernoCheck)},
+            {"Mirage", (mirageRedOverlay, mirageCross, mirageCheck)},
+            {"Vertigo", (vertigoRedOverlay, vertigoCross, vertigoCheck)},
+            {"Overpass", (overpassRedOverlay, overpassCross, overpassCheck)},
+            {"Nuke", (nukeRedOverlay, nukeCross, nukeCheck)}
         };
 
     }
 
-
-    private void mapSelection(string clickedMap)
+    private void MapClicked(string mapName)
     {
 
-        mapBanStatus[clickedMap] = Visibility.Visible;
+        mapControls[mapName].redOverlay.Visibility = Visibility.Visible;
+        mapControls[mapName].cross.Visibility = Visibility.Visible;
 
-        int banCount = 0;
-        string finalMap = "";
+        int banCount = mapControls.Count(mpCntrl => mpCntrl.Value.redOverlay.Visibility == Visibility.Visible);
 
-        foreach (KeyValuePair<string, Visibility> keyMap in mapBanStatus)
+        if (banCount == 6)
         {
-            // Debug.WriteLine("\n\nHERE--- " +  keyMap.Key.ToString() + " " + keyMap.Value.ToString());
-            if (keyMap.Key != clickedMap && keyMap.Value == Visibility.Visible)
-            {
-                banCount++;
-            }
+            var finalMap = mapControls.Last(mapCntrl => mapCntrl.Value.redOverlay.Visibility == Visibility.Hidden).Key;
+            mapControls[finalMap].check.Visibility = Visibility.Visible;
         }
+    }
 
-        if (banCount == 5)
+
+
+    private void anubisClicked(object sender, RoutedEventArgs e) => MapClicked("Anubis");
+    private void ancientClicked(object sender, RoutedEventArgs e) => MapClicked("Ancient");
+    private void infernoClicked(object sender, RoutedEventArgs e) => MapClicked("Inferno");
+    private void nukeClicked(object sender, RoutedEventArgs e) => MapClicked("Nuke");
+    private void mirageClicked(object sender, RoutedEventArgs e) => MapClicked("Mirage");
+    private void overpassClicked(object sender, RoutedEventArgs e) => MapClicked("Overpass");
+    private void vertigoClicked(object sender, RoutedEventArgs e) => MapClicked("Vertigo");
+
+    private void refreshClicked(object sender, RoutedEventArgs e)
+    {
+        foreach (var control in mapControls)
         {
-            foreach (KeyValuePair<string, Visibility> keyMap in mapBanStatus)
-            {
-                if (keyMap.Value == Visibility.Hidden)
-                {
-                    finalMap = keyMap.Key;
-                }
-            }
-            MessageBox.Show($"Team 1 chose {finalMap}", "Game Over");
+            control.Value.redOverlay.Visibility = Visibility.Hidden;
+            control.Value.cross.Visibility = Visibility.Hidden;
+            control.Value.check.Visibility = Visibility.Hidden;
         }
-
     }
-
-
-
-    private void anubisClicked(object sender, RoutedEventArgs e)
-    {
-        anubisCheck.Visibility = Visibility.Visible;
-        mapSelection("Anubis");
-    }
-
-    private void ancientClicked(object sender, RoutedEventArgs e)
-    {
-        ancientCheck.Visibility = Visibility.Visible;
-        mapSelection("Ancient");
-    }
-
-    private void infernoClicked(object sender, RoutedEventArgs e)
-    {
-        infernoCheck.Visibility = Visibility.Visible;
-        mapSelection("Inferno");
-    }
-
-    private void nukeClicked(object sender, RoutedEventArgs e)
-    {
-        nukeCheck.Visibility = Visibility.Visible;
-        mapSelection("Nuke");
-    }
-
-    private void mirageClicked(object sender, RoutedEventArgs e)
-    {
-        mirageCheck.Visibility = Visibility.Visible;
-        mapSelection("Mirage");
-    }
-
-    private void overpassClicked(object sender, RoutedEventArgs e)
-    {
-        overpassCheck.Visibility = Visibility.Visible;
-        mapSelection("Overpass");
-    }
-
-    private void vertigoClicked(object sender, RoutedEventArgs e)
-    {
-        vertigoCheck.Visibility = Visibility.Visible;
-        mapSelection("Vertigo");
-    }
-
-
 }
+

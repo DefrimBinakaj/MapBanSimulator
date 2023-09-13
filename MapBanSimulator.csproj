@@ -7,4 +7,30 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Images\ancientPic.png" />
+    <None Remove="Images\anubisPic.png" />
+    <None Remove="Images\green_check.png" />
+    <None Remove="Images\infernoPic.png" />
+    <None Remove="Images\miragePic.png" />
+    <None Remove="Images\nukePic.png" />
+    <None Remove="Images\overpassPic.png" />
+    <None Remove="Images\red_cross.png" />
+    <None Remove="Images\reset_icon.png" />
+    <None Remove="Images\vertigoPic.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\ancientPic.png" />
+    <Resource Include="Images\anubisPic.png" />
+    <Resource Include="Images\green_check.png" />
+    <Resource Include="Images\infernoPic.png" />
+    <Resource Include="Images\miragePic.png" />
+    <Resource Include="Images\nukePic.png" />
+    <Resource Include="Images\overpassPic.png" />
+    <Resource Include="Images\red_cross.png" />
+    <Resource Include="Images\reset_icon.png" />
+    <Resource Include="Images\vertigoPic.png" />
+  </ItemGroup>
+
 </Project>
