@@ -9,19 +9,21 @@
 
 
     <Grid
-        Background="DimGray">
+        x:Name="mainBackground"
+        Background="Maroon"
+        MinHeight="650"
+        MinWidth="400">
         
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.1*"/>
-            <RowDefinition Height="0.9*"/>
+            <RowDefinition Height="0.05*"/>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="0.45*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.1*"/>
             <ColumnDefinition Width="0.8*"/>
             <ColumnDefinition Width="0.1*"/>
         </Grid.ColumnDefinitions>
-
-        <Frame x:Name="mainFrame" />
 
         <TextBlock
             Name="BanPageTitle"
@@ -32,64 +34,93 @@
             VerticalAlignment="Top"
             Margin="10"/>
 
-        <Image
-            Source="/MapBanSimulator;component/Images/reset_icon.png"
-            MouseLeftButtonDown="refreshClicked"
+        <Button 
+            x:Name="toggleButton"
+            Click="clickModeToggle"
             Grid.Row="1"
-            Grid.Column="2"
-            HorizontalAlignment="Center"
+            Grid.Column="1"
+            Width="40"
+            Height="40"
+            HorizontalAlignment="Left"
             VerticalAlignment="Top"
-            Width="50"
-            Height="50"/>
+            Margin="36"
+            Content="Toggle Pick Type"/>
+
 
         <Viewbox Grid.Row="1" Grid.Column="1" Stretch="Uniform">
-            <Canvas Grid.Row="1" Width="200" Height="200">
+            <Canvas Width="200" Height="200">
 
                 <Image Source="/MapBanSimulator;component/Images/anubisPic.png" MouseLeftButtonDown="anubisClicked" Canvas.Left="85" Canvas.Top="20" Width="30" Height="30" />
                 <Rectangle x:Name="anubisRedOverlay" Visibility="Hidden" Canvas.Left="85" Canvas.Top="20" Width="30" Height="30" Fill="Red" Opacity="0.4"/>
                 <Image x:Name="anubisCross" Visibility="Hidden" Source="/MapBanSimulator;component/Images/red_cross.png" Canvas.Left="93.5" Canvas.Top="28.5" Width="13" Height="13" />
                 <Image x:Name="anubisCheck" Visibility="Hidden" Source="/MapBanSimulator;component/Images/green_check.png" Canvas.Left="95" Canvas.Top="27" Width="13" Height="13" />
+                <TextBlock x:Name="anubisRank" Visibility="Hidden" Text="1" FontSize="16" Foreground="LawnGreen" Canvas.Left="95" Canvas.Top="23" IsHitTestVisible="False" />
 
                 <Image Source="/MapBanSimulator;component/Images/ancientPic.png" MouseLeftButtonDown="ancientClicked" Canvas.Left="35" Canvas.Top="55" Width="30" Height="30"/>
                 <Rectangle x:Name="ancientRedOverlay" Visibility="Hidden" Canvas.Left="35" Canvas.Top="55" Width="30" Height="30" Fill="Red" Opacity="0.4"/>
                 <Image x:Name="ancientCross" Visibility="Hidden" Source="/MapBanSimulator;component/Images/red_cross.png" Canvas.Left="43.5" Canvas.Top="63.5" Width="13" Height="13" />
                 <Image x:Name="ancientCheck" Visibility="Hidden" Source="/MapBanSimulator;component/Images/green_check.png" Canvas.Left="45" Canvas.Top="62" Width="13" Height="13" />
-
+                <TextBlock x:Name="ancientRank" Visibility="Hidden" Text="1" FontSize="16" Foreground="LawnGreen"  Canvas.Left="45" Canvas.Top="59" IsHitTestVisible="False" />
+                
                 <Image Source="/MapBanSimulator;component/Images/infernoPic.png" MouseLeftButtonDown="infernoClicked" Canvas.Left="135" Canvas.Top="55" Width="30" Height="30"/>
                 <Rectangle x:Name="infernoRedOverlay" Visibility="Hidden" Canvas.Left="135" Canvas.Top="55" Width="30" Height="30" Fill="Red" Opacity="0.4"/>
                 <Image x:Name="infernoCross" Visibility="Hidden" Source="/MapBanSimulator;component/Images/red_cross.png" Canvas.Left="143.5" Canvas.Top="63.5" Width="13" Height="13" />
                 <Image x:Name="infernoCheck" Visibility="Hidden" Source="/MapBanSimulator;component/Images/green_check.png" Canvas.Left="145" Canvas.Top="62" Width="13" Height="13" />
-
+                <TextBlock x:Name="infernoRank" Visibility="Hidden" Text="1" FontSize="16" Foreground="LawnGreen" Canvas.Left="145" Canvas.Top="59" IsHitTestVisible="False" />
+                
                 <Image Source="/MapBanSimulator;component/Images/nukePic.png" MouseLeftButtonDown="nukeClicked" Canvas.Left="20" Canvas.Top="110" Width="30" Height="30"/>
                 <Rectangle x:Name="nukeRedOverlay" Visibility="Hidden" Canvas.Left="20" Canvas.Top="110" Width="30" Height="30" Fill="Red" Opacity="0.4"/>
                 <Image x:Name="nukeCross" Visibility="Hidden" Source="/MapBanSimulator;component/Images/red_cross.png" Canvas.Left="28.5" Canvas.Top="118.5" Width="13" Height="13" />
                 <Image x:Name="nukeCheck" Visibility="Hidden" Source="/MapBanSimulator;component/Images/green_check.png" Canvas.Left="30" Canvas.Top="117" Width="13" Height="13" />
-
+                <TextBlock x:Name="nukeRank" Visibility="Hidden" Text="1" FontSize="16" Foreground="LawnGreen" Canvas.Left="30" Canvas.Top="114" IsHitTestVisible="False" />
+                
                 <Image Source="/MapBanSimulator;component/Images/miragePic.png" MouseLeftButtonDown="mirageClicked" Canvas.Left="150" Canvas.Top="110" Width="30" Height="30"/>
                 <Rectangle x:Name="mirageRedOverlay" Visibility="Hidden" Canvas.Left="150" Canvas.Top="110" Width="30" Height="30" Fill="Red" Opacity="0.4"/>
                 <Image x:Name="mirageCross" Visibility="Hidden" Source="/MapBanSimulator;component/Images/red_cross.png" Canvas.Left="158.5" Canvas.Top="118.5" Width="13" Height="13" />
                 <Image x:Name="mirageCheck" Visibility="Hidden" Source="/MapBanSimulator;component/Images/green_check.png" Canvas.Left="160" Canvas.Top="117" Width="13" Height="13" />
-
+                <TextBlock x:Name="mirageRank" Visibility="Hidden" Text="1" FontSize="16" Foreground="LawnGreen" Canvas.Left="160"  Canvas.Top="114" IsHitTestVisible="False" />
+                
                 <Image Source="/MapBanSimulator;component/Images/overpassPic.png" MouseLeftButtonDown="overpassClicked" Canvas.Left="60" Canvas.Top="155" Width="30" Height="30"/>
                 <Rectangle x:Name="overpassRedOverlay" Visibility="Hidden" Canvas.Left="60" Canvas.Top="155" Width="30" Height="30" Fill="Red" Opacity="0.4"/>
                 <Image x:Name="overpassCross" Visibility="Hidden" Source="/MapBanSimulator;component/Images/red_cross.png" Canvas.Left="68.5" Canvas.Top="163.5" Width="13" Height="13" />
                 <Image x:Name="overpassCheck" Visibility="Hidden" Source="/MapBanSimulator;component/Images/green_check.png" Canvas.Left="70" Canvas.Top="162" Width="13" Height="13" />
-
+                <TextBlock x:Name="overpassRank" Visibility="Hidden" Text="1" FontSize="16" Foreground="LawnGreen" Canvas.Left="70" Canvas.Top="158" IsHitTestVisible="False" />
+                
                 <Image Source="/MapBanSimulator;component/Images/vertigoPic.png" MouseLeftButtonDown="vertigoClicked" Canvas.Left="110" Canvas.Top="155" Width="30" Height="30"/>
                 <Rectangle x:Name="vertigoRedOverlay" Visibility="Hidden" Canvas.Left="110" Canvas.Top="155" Width="30" Height="30" Fill="Red" Opacity="0.4"/>
                 <Image x:Name="vertigoCross" Visibility="Hidden" Source="/MapBanSimulator;component/Images/red_cross.png" Canvas.Left="118.5" Canvas.Top="163.5" Width="13" Height="13" />
                 <Image x:Name="vertigoCheck" Visibility="Hidden" Source="/MapBanSimulator;component/Images/green_check.png" Canvas.Left="120" Canvas.Top="162" Width="13" Height="13" />
-            
+                <TextBlock x:Name="vertigoRank" Visibility="Hidden" Text="1" FontSize="16" Foreground="LawnGreen" Canvas.Left="120" Canvas.Top="158" IsHitTestVisible="False" />
+                
+                <Image
+                    x:Name="refreshButton"
+                    Source="/MapBanSimulator;component/Images/reset_icon.png"
+                    MouseLeftButtonDown="refreshClicked"
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Width="25"
+                    Height="15"
+                    Canvas.Left="175" Canvas.Top="15"
+                    Stretch="Uniform"
+                    MouseEnter="refreshHover"
+                    MouseLeave="refreshUnhover"
+                    MouseDown="refreshMouseDown"
+                    MouseUp="refreshMouseUp"/>
+
+
             </Canvas>
         </Viewbox>
 
 
-        <Button
-            Name="navCalcButton"
-            Grid.Row="0"
-            Grid.Column="2"
-            Click="navCalcPage"/>
-
+    
+        
+        
+        
+        
+        
+        
+        
+        
     </Grid>
 
 

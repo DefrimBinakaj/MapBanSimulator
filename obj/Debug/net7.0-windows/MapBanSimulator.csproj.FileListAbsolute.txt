@@ -39,5 +39,3 @@ C:\Users\defri\Documents\code\.NET Stuff\MapBanSimulator\obj\Debug\net7.0-window
 C:\Users\defri\Documents\code\.NET Stuff\MapBanSimulator\obj\Debug\net7.0-windows\MapBanSimulator.pdb
 C:\Users\defri\Documents\code\.NET Stuff\MapBanSimulator\obj\Debug\net7.0-windows\MapBanSimulator.genruntimeconfig.cache
 C:\Users\defri\Documents\code\.NET Stuff\MapBanSimulator\obj\Debug\net7.0-windows\ref\MapBanSimulator.dll
-C:\Users\defrim.binakaj\source\repos\MapBanSimulator\obj\Debug\net7.0-windows\Pages\CalcPage.g.cs
-C:\Users\defrim.binakaj\source\repos\MapBanSimulator\obj\Debug\net7.0-windows\Pages\CalcPage.baml
