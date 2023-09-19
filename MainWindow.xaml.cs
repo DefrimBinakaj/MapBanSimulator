@@ -11,6 +11,11 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.Windows.Media;
+using System.Windows.Input;
+
+using MapBanSimulator.UserControls;
+using MapBanSimulator.Models;
+using MapBanSimulator.ViewModels;
 
 namespace MapBanSimulator;
 
@@ -23,17 +28,6 @@ public partial class MainWindow : Window
         banningMode
     }
 
-    Dictionary<int, Color> rankColourTable = new Dictionary<int, Color>
-    {
-        {1, Colors.LawnGreen },
-        {2, Colors.GreenYellow },
-        {3, Colors.GreenYellow },
-        {4, Colors.LightGreen },
-        {5, Colors.Yellow },
-        {6, Colors.Orange },
-        {7, Colors.OrangeRed }
-    };
-
 
     // default mode
     clickMode currMode = clickMode.banningMode;
@@ -43,26 +37,13 @@ public partial class MainWindow : Window
     private ObservableCollection<string> mapRanking;
 
 
-
-
-
-
-
-    // private static readonly HttpClient client = new HttpClient();
-
-    // private Dictionary<string, double> mapPublicBanRate;
-
-
-
-
-
-
-
-
     public MainWindow()
     {
         InitializeComponent();
         initData();
+
+        mapRankingListView.DataContext = mapRanking;
+
     }
 
 
@@ -91,19 +72,20 @@ public partial class MainWindow : Window
     {
         clearBans();
         clearRanks();
-        // ternary toggle logic
-        // currMode = currMode == clickMode.rankingMode ? clickMode.banningMode : clickMode.rankingMode;
-
 
         if (currMode == clickMode.rankingMode)
         {
             currMode = clickMode.banningMode;
-            mainBackground.Background = new SolidColorBrush(Colors.Maroon);
+            // mainBackground.Background = new SolidColorBrush(Colors.RosyBrown);
+            blueBackground.Visibility = Visibility.Hidden;
+            redBackground.Visibility = Visibility.Visible;
         }
         else if (currMode == clickMode.banningMode)
         {
             currMode = clickMode.rankingMode;
-            mainBackground.Background = new SolidColorBrush(Colors.LightSlateGray);
+            // mainBackground.Background = new SolidColorBrush(Colors.LightSlateGray);
+            redBackground.Visibility = Visibility.Hidden;
+            blueBackground.Visibility = Visibility.Visible;
         }
 
     }
@@ -157,6 +139,7 @@ public partial class MainWindow : Window
                 Debug.WriteLine("clickMode is incorrect");
                 break;
         }
+        calcFunc();
     }
 
 
@@ -210,10 +193,71 @@ public partial class MainWindow : Window
             TextBlock correspondingTextBlock = getRankText(mapName);
             correspondingTextBlock.Text = (i + 1).ToString();
             correspondingTextBlock.Visibility = Visibility.Visible;
-            correspondingTextBlock.Foreground = new SolidColorBrush(rankColourTable[i + 1]);
+            correspondingTextBlock.Foreground = new SolidColorBrush(ConstantSets.rankColourTable[i + 1]);
         }
     }
 
+
+
+
+
+    private void calcFunc()
+    {
+
+        Dictionary<string, double> mapPubPlayRate = ConstantSets.MapPublicPlayRate;
+
+
+
+        if (mapRanking.Count == 7)
+        {
+            // maps likely to be banned by enemy due to lowest play rates.
+            var potentialEnemyBans = mapPubPlayRate.OrderBy(m => m.Value).Take(3).Select(m => m.Key).ToList();
+
+            // ban your least favorite maps that aren't likely to be banned by the enemy.
+            var myBans = mapRanking.TakeLast(2)
+                                          .Where(m => !potentialEnemyBans.Contains(m))
+                                          .ToList();
+
+            // If you didn't ban 2 maps in the initial phase because potential enemy bans overlap with your least favorite maps, 
+            // ban your next least favorite map that isn't likely to be banned by the enemy.
+            while (myBans.Count < 2)
+            {
+                var nextBan = mapRanking.Except(myBans).Except(potentialEnemyBans).Last();
+                myBans.Add(nextBan);
+            }
+
+            // if the enemy does not ban your least favorite map (last in mapRanking), you should ban it in your final ban.
+            var finalBan = potentialEnemyBans.Contains(mapRanking.Last())
+                           ? mapRanking.Except(myBans).Except(potentialEnemyBans).Last()
+                           : mapRanking.Last();
+
+            myBans.Add(finalBan);
+
+            Debug.WriteLine("First two bans:");
+            foreach (var map in myBans.Take(2))
+            {
+                Debug.WriteLine("You should ban: " + map);
+            }
+
+            Debug.WriteLine("Expected enemy bans:");
+            foreach (var map in potentialEnemyBans)
+            {
+                Debug.WriteLine("Enemy will likely ban: " + map);
+            }
+
+            Debug.WriteLine("Final ban:");
+            Debug.WriteLine("You should ban: " + finalBan);
+            Debug.WriteLine("Map to be played: " + mapRanking.Last().ToString());
+
+            Debug.WriteLine("\n//");
+        }
+        else
+        {
+            Debug.WriteLine("Not enough maps yet");
+        }
+        
+
+    }
 
 
 
@@ -232,7 +276,7 @@ public partial class MainWindow : Window
     
     private void refreshHover(object sender, RoutedEventArgs e) => refreshButton.Opacity = 0.6;
     private void refreshUnhover(object sender, RoutedEventArgs e) => refreshButton.Opacity = 0.8;
-    private void refreshMouseDown(object sender, RoutedEventArgs e) => refreshButton.Opacity = 1.0;
+    private void refreshMouseDown(object sender, RoutedEventArgs e) => refreshButton.Opacity = 0.3;
     private void refreshMouseUp(object sender, RoutedEventArgs e) => refreshButton.Opacity = 0.8;
 }
 
