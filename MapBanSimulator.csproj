@@ -17,10 +17,13 @@
     <None Remove="Images\overpassPic.png" />
     <None Remove="Images\red_cross.png" />
     <None Remove="Images\reset_icon.png" />
+    <None Remove="Images\reset_icon_purple.png" />
+    <None Remove="Images\togglePic.png" />
     <None Remove="Images\vertigoPic.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Images\togglePic.png" />
     <Resource Include="Images\ancientPic.png" />
     <Resource Include="Images\anubisPic.png" />
     <Resource Include="Images\green_check.png" />
@@ -30,6 +33,7 @@
     <Resource Include="Images\overpassPic.png" />
     <Resource Include="Images\red_cross.png" />
     <Resource Include="Images\reset_icon.png" />
+    <Resource Include="Images\reset_icon_purple.png" />
     <Resource Include="Images\vertigoPic.png" />
   </ItemGroup>
 

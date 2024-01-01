@@ -18,7 +18,6 @@ C:\Users\defrim.binakaj\source\repos\MapBanSimulator\obj\Debug\net7.0-windows\re
 C:\Users\defrim.binakaj\source\repos\MapBanSimulator\obj\Debug\net7.0-windows\MapBanSimulator.pdb
 C:\Users\defrim.binakaj\source\repos\MapBanSimulator\obj\Debug\net7.0-windows\MapBanSimulator.genruntimeconfig.cache
 C:\Users\defrim.binakaj\source\repos\MapBanSimulator\obj\Debug\net7.0-windows\ref\MapBanSimulator.dll
-C:\Users\defri\Documents\code\.NET Stuff\MapBanSimulator\obj\Debug\net7.0-windows\MapBanSimulator.csproj.AssemblyReference.cache
 C:\Users\defri\Documents\code\.NET Stuff\MapBanSimulator\obj\Debug\net7.0-windows\MainWindow.g.cs
 C:\Users\defri\Documents\code\.NET Stuff\MapBanSimulator\obj\Debug\net7.0-windows\App.g.cs
 C:\Users\defri\Documents\code\.NET Stuff\MapBanSimulator\obj\Debug\net7.0-windows\MapBanSimulator_MarkupCompile.cache
@@ -42,3 +41,4 @@ C:\Users\defri\Documents\code\.NET Stuff\MapBanSimulator\obj\Debug\net7.0-window
 C:\Users\defri\Documents\code\.NET Stuff\MapBanSimulator\obj\Debug\net7.0-windows\UserControls\SeptagonDrag.g.cs
 C:\Users\defri\Documents\code\.NET Stuff\MapBanSimulator\obj\Debug\net7.0-windows\GeneratedInternalTypeHelper.g.cs
 C:\Users\defri\Documents\code\.NET Stuff\MapBanSimulator\obj\Debug\net7.0-windows\UserControls\SeptagonDrag.baml
+C:\Users\defri\Documents\code\.NET Stuff\MapBanSimulator\obj\Debug\net7.0-windows\MapBanSimulator.sourcelink.json

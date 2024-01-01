@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MapBanSimulator")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+eb691a788c891f47a914e7609e932d41f6295872")]
 [assembly: System.Reflection.AssemblyProductAttribute("MapBanSimulator")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MapBanSimulator")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

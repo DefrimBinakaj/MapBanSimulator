@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -32,7 +33,7 @@ public partial class SeptagonDrag : UserControl
     private List<Point> vertices;
     private bool isDragging = false;
 
-    private Dictionary<string, double?> dotDistances;
+    public Dictionary<string, double?> dotDistances;
 
     public Dictionary<string, double?> dotPercentages;
 
@@ -58,13 +59,13 @@ public partial class SeptagonDrag : UserControl
         // ** order of dict init matters; must go clockwise starting at top
         dotPercentages = new Dictionary<string, double?>()
         {
-            {"Anubis", null},
-            {"Inferno", null},
-            {"Mirage", null},
-            {"Vertigo", null},
-            {"Overpass", null},
-            {"Nuke", null},
-            {"Ancient", null}
+            {"Anubis", 0},
+            {"Inferno", 0},
+            {"Mirage", 0},
+            {"Vertigo", 0},
+            {"Overpass", 0},
+            {"Nuke", 0},
+            {"Ancient", 0}
         };
 
 
@@ -90,13 +91,18 @@ public partial class SeptagonDrag : UserControl
             {
                 currentSeptagon.Stroke = new SolidColorBrush(Colors.Black);
             }
-            else if (j == 0 || j == 10)
+            else if (j == 0)
+            { 
+                currentSeptagon.Stroke = new SolidColorBrush(Colors.Black);
+            }
+            else if (j == 10)
             {
                 currentSeptagon.Stroke = new SolidColorBrush(Colors.Black);
+                currentSeptagon.Fill = new SolidColorBrush(Colors.Black);
             }
             else if (j % 2 == 0)
             {
-                currentSeptagon.Stroke = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#7c6b7d"));
+                currentSeptagon.Stroke = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#948b9d"));
             }
             else
             {
@@ -107,6 +113,7 @@ public partial class SeptagonDrag : UserControl
 
         // Create dots for the outermost septagon only
         vertices = CreateSeptagon(SeptagonCenter.X, SeptagonCenter.Y, SeptagonRadius).Points.ToList();
+
     }
 
 
@@ -188,6 +195,7 @@ public partial class SeptagonDrag : UserControl
         var ellipse = sender as Ellipse;
         ellipse.ReleaseMouseCapture();
 
+        Debug.WriteLine("----\n");
         foreach (var prctg in dotPercentages)
         {
             Debug.WriteLine(prctg.Key + " - " + prctg.Value);
@@ -204,7 +212,6 @@ public partial class SeptagonDrag : UserControl
 
         for (int i = 0; i < 7; i++)
         {
-
             // Start from -90 degrees to have the septagon upright
             double angle = (-90 + i * 51.43) * (Math.PI / 180);  // Convert to radians
             double x = centerX + radius * Math.Cos(angle);
@@ -252,7 +259,87 @@ public partial class SeptagonDrag : UserControl
 
             Canvas.SetLeft(ellipse, newPos.X - ellipse.Width / 2);
             Canvas.SetTop(ellipse, newPos.Y - ellipse.Height / 2);
+
         }
     }
+
+
+    public void checkDotVals(object sender, RoutedEventArgs e)
+    {
+        Debug.WriteLine("checkDotVals:");
+        Debug.WriteLine(string.Join(" ", dotPercentages));
+    }
+
+
+    public void refreshDotsButton(object sender, RoutedEventArgs e)
+    {
+
+        // Set all distances to SeptagonRadius (i.e., the outside)
+        foreach (var key in dotDistances.Keys.ToList())
+        {
+            dotDistances[key] = MinimumDistance;
+            dotPercentages[key] = 0;
+        }
+
+        // Ensure the dots list is initialized
+        if (dots == null)
+            return;
+
+        // Update positions based on the modified dotDistances
+        for (int i = 0; i < dots.Count; i++)
+        {
+            var dot = dots[i];
+            var mapName = dotDistances.Keys.ElementAt(i);
+            var vertex = vertices[i];
+
+            if (dotDistances[mapName].HasValue)
+            {
+                double storedDistance = dotDistances[mapName].Value;
+                double theta = (-90 + i * 360.0 / 7) * (Math.PI / 180);
+                Vector direction = new Vector(Math.Cos(theta), Math.Sin(theta));
+                var newPos = SeptagonCenter + direction * storedDistance;
+
+                Canvas.SetLeft(dot, newPos.X - dot.Width / 2);
+                Canvas.SetTop(dot, newPos.Y - dot.Height / 2);
+            }
+            else
+            {
+                Canvas.SetLeft(dot, vertex.X - dot.Width / 2);
+                Canvas.SetTop(dot, vertex.Y - dot.Height / 2);
+            }
+
+            // Ensure the event handlers are attached
+            dot.MouseDown -= OnMouseDown;  // Remove first to avoid double subscription
+            dot.MouseDown += OnMouseDown;
+            dot.MouseMove -= OnMouseMove;
+            dot.MouseMove += OnMouseMove;
+            dot.MouseUp -= OnMouseUp;
+            dot.MouseUp += OnMouseUp;
+        }
+    }
+
+
+    public Dictionary<string, double?> DotPercentages
+    {
+        get => dotPercentages;
+        set
+        {
+            dotPercentages = value;
+            OnPropertyChanged(nameof(DotPercentages));
+        }
+    }
+
+
+
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    protected virtual void OnPropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
+
+
+
 }
 

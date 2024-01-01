@@ -11,6 +11,16 @@
         <Canvas x:Name="canvas">
             <!-- The septagon and dot will be added here programmatically. -->
         </Canvas>
+        <Image
+            MouseLeftButtonDown="refreshDotsButton"
+            Source="/MapBanSimulator;component/Images/reset_icon_purple.png"
+            Width="30"
+            Height="25"/>
+        <Button 
+            Width="60"
+            Height="40"
+            VerticalAlignment="Bottom"
+            Click="checkDotVals"/>
     </Grid>
     
 </UserControl>
