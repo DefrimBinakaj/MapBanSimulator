@@ -14,13 +14,8 @@
         <Image
             MouseLeftButtonDown="refreshDotsButton"
             Source="/MapBanSimulator;component/Images/reset_icon_purple.png"
-            Width="30"
+            Width="20"
             Height="25"/>
-        <Button 
-            Width="60"
-            Height="40"
-            VerticalAlignment="Bottom"
-            Click="checkDotVals"/>
     </Grid>
     
 </UserControl>

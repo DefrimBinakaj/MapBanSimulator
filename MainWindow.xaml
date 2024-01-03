@@ -144,7 +144,7 @@
         </Viewbox>
 
 
-        <userctrls:SeptagonDrag Grid.Row="1" Grid.Column="1" SeptagonRadius="180" MinimumDistance="20" />
+        <userctrls:SeptagonDrag x:Name="septagonDragXAMLinstance" Grid.Row="1" Grid.Column="1" SeptagonRadius="180" MinimumDistance="20" />
 
         
         

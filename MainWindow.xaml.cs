@@ -40,13 +40,6 @@ public partial class MainWindow : Window
 
 
 
-    // init usercontrol / viewmodel instance
-    private readonly SeptagonDrag septagonDrag;
-
-
-
-
-
     // general map list
     public List<string> mapList = new List<string> { "Anubis", "Inferno", "Mirage", "Vertigo", "Overpass", "Nuke", "Ancient" };
 
@@ -60,10 +53,11 @@ public partial class MainWindow : Window
 
 
     // team 2
-    Dictionary<string, double?> team2WinRateDict;
+    public Dictionary<string, double?> team2WinRateDict = new Dictionary<string, double?>();
 
 
-
+    // updatedPercentages dict
+    Dictionary<string, double?> updatedPercentages;
 
 
     public MainWindow()
@@ -71,9 +65,21 @@ public partial class MainWindow : Window
         InitializeComponent();
         initData();
 
-        septagonDrag = new SeptagonDrag();
-
+        // instead of creating a new SeptagonDrag instance, you must use the one created in your XAML
+        // otherwise you will have issues tying subscriptions and events to the UI
+        septagonDragXAMLinstance.PercentagesUpdated += SeptagonDrag_PercentagesUpdated;
     }
+
+    private void SeptagonDrag_PercentagesUpdated(object sender, EventArgs e)
+    {
+        // Handle the update here. For example, read the updated percentages
+        updatedPercentages = septagonDragXAMLinstance.dotPercentages;
+        // Update your UI or logic based on the new values
+        Debug.WriteLine("event!");
+        Debug.WriteLine(string.Join(" ", updatedPercentages));
+    }
+
+
 
 
 
@@ -119,7 +125,7 @@ public partial class MainWindow : Window
             Debug.WriteLine("team1WinRateDict --- " + string.Join(" ", team1WinRateDict));
 
             // set winrateDict to current dragged percentages
-            team2WinRateDict = new Dictionary<string, double?>(septagonDrag.dotPercentages);
+            team2WinRateDict = updatedPercentages;
             Debug.WriteLine("team2WinRateDict --- " + string.Join(" ", team2WinRateDict));
 
             // list of remaining maps not banned
@@ -134,6 +140,7 @@ public partial class MainWindow : Window
             double team1WinRateWeight = 1;
             double team2WinRateWeight = 1;
             // ********************************************
+
 
             // Team 1's first two bans
             for (int i = 0; i < 2; i++)
