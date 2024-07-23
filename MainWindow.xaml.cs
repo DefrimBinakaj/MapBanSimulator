@@ -13,8 +13,8 @@ using System.Collections.ObjectModel;
 using System.Windows.Media;
 using System.Windows.Input;
 using MapBanSimulator.UserControls;
-using MapBanSimulator.Models;
 using System.ComponentModel;
+using MapBanSimulator.Models;
 
 
 namespace MapBanSimulator;
