@@ -10,8 +10,10 @@
   <ItemGroup>
     <None Remove="Images\ancientPic.png" />
     <None Remove="Images\anubisPic.png" />
+    <None Remove="Images\cs2logo.png" />
     <None Remove="Images\green_check.png" />
     <None Remove="Images\infernoPic.png" />
+    <None Remove="Images\mapBanSimPic.png" />
     <None Remove="Images\miragePic.png" />
     <None Remove="Images\nukePic.png" />
     <None Remove="Images\overpassPic.png" />
@@ -20,6 +22,11 @@
     <None Remove="Images\reset_icon_purple.png" />
     <None Remove="Images\togglePic.png" />
     <None Remove="Images\vertigoPic.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\cs2logo.png" />
+    <Resource Include="Images\mapBanSimPic.png" />
   </ItemGroup>
 
   <ItemGroup>
