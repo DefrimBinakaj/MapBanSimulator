@@ -18,7 +18,15 @@ using System.Windows.Shapes;
 namespace MapBanSimulator.UserControls;
 
 
-
+/**
+ * 
+ * SeptagonDrag Class
+ * 
+ * Class used for septagon and dots functions
+ * 
+ * 
+ * 
+ */
 
 public partial class SeptagonDrag : UserControl
 {
@@ -27,11 +35,11 @@ public partial class SeptagonDrag : UserControl
     private List<Point> vertices;
     private bool isDragging = false;
 
-
+    // hardcode septagon for size and referencing
     public Point SeptagonCenter { get; set; }
-    public double SeptagonRadius { get; set; } = 200;
-    public double MinimumDistance { get; set; } = 30;
-    public double StepDistance { get; set; } = 16;
+    public double SeptagonRadius { get; set; } = 200; // radius
+    public double MinimumDistance { get; set; } = 30; // position of dot along radius at 0% drag
+    public double StepDistance { get; set; } = 16; // rad step
 
 
     // ** order of dict init matters; must go clockwise starting at top
@@ -49,13 +57,13 @@ public partial class SeptagonDrag : UserControl
     // ** order of dict init matters; must go clockwise starting at top
     public Dictionary<string, double?> dotPercentages = new Dictionary<string, double?>()
     {
-        {"Anubis", 0},
-        {"Inferno", 0},
-        {"Mirage", 0},
-        {"Vertigo", 0},
-        {"Overpass", 0},
-        {"Nuke", 0},
-        {"Ancient", 0}
+        {"Anubis", 0.00},
+        {"Inferno", 0.00},
+        {"Mirage", 0.00},
+        {"Vertigo", 0.00},
+        {"Overpass", 0.00},
+        {"Nuke", 0.00},
+        {"Ancient", 0.00}
     };
 
 
@@ -71,6 +79,7 @@ public partial class SeptagonDrag : UserControl
 
         InitializeComponent();
 
+        // subscribe
         this.SizeChanged += OnSizeChanged;
 
     }
@@ -132,7 +141,7 @@ public partial class SeptagonDrag : UserControl
             canvas.Children.Add(currentSeptagon);
         }
 
-        // Create dots for the outermost septagon only
+        // save x/y location of vertices for the outermost septagon in order to place dots
         vertices = CreateSeptagon(SeptagonCenter.X, SeptagonCenter.Y, SeptagonRadius).Points.ToList();
 
     }
@@ -161,7 +170,7 @@ public partial class SeptagonDrag : UserControl
 
 
 
-
+    // change position of dots according to window size
     private void RelocateDots()
     {
         // create new dots list
@@ -199,7 +208,7 @@ public partial class SeptagonDrag : UserControl
     }
 
 
-
+    // mouse pressed down
     private void OnMouseDown(object sender, MouseButtonEventArgs e)
     {
         isDragging = true;
@@ -207,6 +216,7 @@ public partial class SeptagonDrag : UserControl
         ellipse.CaptureMouse();
     }
 
+    // mouse press up
     private void OnMouseUp(object sender, MouseButtonEventArgs e)
     {
         isDragging = false;
@@ -222,6 +232,7 @@ public partial class SeptagonDrag : UserControl
         OnPercentagesUpdated();
     }
 
+    // mouse drag
     private void OnMouseMove(object sender, MouseEventArgs e)
     {
         if (isDragging)
@@ -238,36 +249,32 @@ public partial class SeptagonDrag : UserControl
     }
 
 
-
-
-
-
-
+    // get new dot position
     private void UpdateDotPosition(Ellipse ellps, Point currentPos, int index, string mapName)
     {
-        // Calculate the angle for the current vertex.
-        double theta = (-90 + index * 360.0 / 7) * (Math.PI / 180); // Convert to radians
+        // calc vertex angle
+        double theta = (-90 + index * 360.0 / 7) * (Math.PI / 180); // conv to radians
 
-        // Calculate the direction vector using the angle theta
+        // calc direction vector
         Vector direction = new Vector(Math.Cos(theta), Math.Sin(theta));
 
-        // Calculate the vector from center to current mouse position
+        // calc the vector from center to current mouse position
         var toMouse = currentPos - SeptagonCenter;
 
-        // Dot product gives the projection length of 'toMouse' onto 'direction'
+        // dot product length to the direction
         var distance = Vector.Multiply(toMouse, direction);
 
-        // Clamp the distance between MinimumDistance and SeptagonRadius
+        // get dist
         distance = Math.Max(MinimumDistance, Math.Min(distance, SeptagonRadius));
 
-        // Save the distance to our dictionary using the map name
+        // save the distance to dict
         dotDistances[mapName] = distance;
 
-        // Calculate percentage
+        // calc %
         double percentage = ((distance - MinimumDistance) / (SeptagonRadius - MinimumDistance));
-        dotPercentages[mapName] = Math.Round(percentage, 3); // Round to three decimal places.
+        dotPercentages[mapName] = Math.Round(percentage, 3); // round to 3 decimal
 
-        // Calculate new position
+        // calc new position
         var newPos = SeptagonCenter + direction * distance;
 
         Canvas.SetLeft(ellps, newPos.X - ellps.Width / 2);
@@ -291,27 +298,21 @@ public partial class SeptagonDrag : UserControl
 
 
 
-
+    // set all distances to MinimumDistance (start of trajectory)
     public void refreshDotsButton(object sender, RoutedEventArgs e)
     {
-
-        // Set all distances to MinimumDistance (i.e., the start of the trajectory)
         foreach (var key in dotDistances.Keys.ToList())
         {
             dotDistances[key] = MinimumDistance;
-            dotPercentages[key] = 0; // 0% since it's at the start of the trajectory
+            dotPercentages[key] = 0; // 0%
         }
 
-        // Update positions based on the modified DotDistances
+        // update positions based on the modified DotDistances
         for (int i = 0; i < dots.Count; i++)
         {
             PositionDots(dots[i], i);
         }
     }
-
-
-
-
 
 
 

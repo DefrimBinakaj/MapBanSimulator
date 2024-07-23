@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="net7.0-windows">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/bin/Debug/net7.0-windows.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

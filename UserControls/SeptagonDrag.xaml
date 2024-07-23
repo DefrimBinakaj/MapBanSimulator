@@ -9,7 +9,7 @@
     
     <Grid>
         <Canvas x:Name="canvas">
-            <!-- The septagon and dot will be added here programmatically. -->
+            <!-- septagon and dots here -->
         </Canvas>
         <Image
             MouseLeftButtonDown="refreshDotsButton"
