@@ -17,6 +17,7 @@ Simple application meant for simulating the map-banning phase according to your 
 
 ## Instructions
 - executable provided in releases
+- .NET runtime must be installed (go through with installation prompted when running the exe)
 - figure it out
 - Note: this will not get you to global elite
 
